@@ -1,0 +1,86 @@
+---
+category: literaturenote
+tags: 
+citekey: "{{citekey}}"
+status: unread
+dateread:
+---
+> [!Cite] 
+> {{bibliography}}
+  
+>[!md] 
+{% for type, creators in creators | groupby("creatorType") -%}  
+{%- for creator in creators -%}  
+>**{{"First" if loop.first}}{{type | capitalize}}**::
+{%- if creator.name %} {{creator.name}}
+{%- else %} {{creator.lastName}}, {{creator.firstName}}  
+{%- endif %}  
+{% endfor %}~  
+{%- endfor %}  
+> **Title**:: {{title}}
+> **Year**:: {{date | format("YYYY")}} 
+> **Citekey**:: {{citekey}} {%- if itemType %}
+> **itemType**:: {{itemType}}{%- endif %}{%- if itemType == "journalArticle" %}  
+> **Journal**:: *{{publicationTitle}}* {%- endif %}{%- if volume %}  
+> **Volume**:: {{volume}} {%- endif %}{%- if issue %}
+> **Issue**:: {{issue}} {%- endif %}{%- if itemType == "bookSection" %}  
+> **Book**:: {{publicationTitle}} {%- endif %}{%- if publisher %}  
+> **Publisher**:: {{publisher}} {%- endif %}{%- if place %}
+> **Location**:: {{place}} {%- endif %}{%- if pages %}
+> **Pages**:: {{pages}} {%- endif %}{%- if DOI %}
+> **DOI**:: {{DOI}} {%- endif %}{%- if ISBN %}  
+> **ISBN**:: {{ISBN}} {%- endif %}  
+
+> [!LINK]
+{%- for attachment in attachments | filterby("pdfURI") %}  
+[{{attachment.title}}]({{attachment.pdfURI}}) {%- endfor %}.
+  
+> [!Abstract]
+ >{%- if abstractNote %}
+ >{{abstractNote}}
+ >{%- endif %}
+
+🔖 Tags
+{% if hashTags %}{{hashTags}}{% endif %}
+
+{% macro heading(color) -%}
+{%- if color == "#ffd400" -%}
+⭐ Important
+{%- endif -%}
+{%- if color == "#ff6666" -%}
+⛔ Weaknesses and caveats
+{%- endif -%}
+{%- if color == "#5fb236" -%}
+🧩 Definitions and concepts
+{%- endif -%}
+{%- if color == "#2ea8e5" -%}
+❔ Questions
+{%- endif -%}
+{%- endmacro -%}
+
+{% persist "annotations" %}
+{% set annotations = annotations | filterby("date", "dateafter", lastImportDate) -%}
+{% if annotations.length > 0 %}
+
+*Imported on {{importDate | format("YYYY-MM-DD HH:mm")}}*
+
+{% for color, annotations in annotations | groupby("color") -%}
+
+### {{heading(color)}} <br>
+
+{%- for annotation in annotations -%}
+{%- if annotation.imageRelativePath %}
+![[{{annotation.imageRelativePath}}]]
+{%- endif %}
+{%- if annotation.comment %}
+- {{annotation.comment}}
+	- {{annotation.annotatedText | nl2br}} [(p. {{annotation.pageLabel}})](zotero://open-pdf/library/items/{{annotation.attachment.itemKey}}?page={{annotation.pageLabel}}&annotation={{annotation.id}}) {% if annotation.allTags %}{{annotation.allTags}}{% endif %}
+{%- elif annotation.annotatedText %}
+- {{annotation.annotatedText | nl2br}} [(p. {{annotation.pageLabel}})](zotero://open-pdf/library/items/{{annotation.attachment.itemKey}}?page={{annotation.pageLabel}}&annotation={{annotation.id}}) {% if annotation.allTags %}{{annotation.allTags}}{% endif %}
+
+{%- endif -%}
+{%- endfor %}
+
+{% endfor -%}
+{% endif %}
+{% endpersist %}
