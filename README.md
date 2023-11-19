@@ -19,7 +19,8 @@ Set up Obsidian plugin
 ![Screenshot 2023-11-19 at 12.35.43.png](https://github.com/yuyuslab/Zotero-Obsidian-Integration/blob/main/screenshots/Screenshot%202023-11-19%20at%2012.35.43.png)
 
 ## Step 5
-- Press cmd-p (for Mac guys) and chose "Zotero Integration: Create Literature Note" type in the paper's name in the pop-up Zotero search bar
+- Press cmd-p (for Mac guys) and chose "Zotero Integration: Create Literature Note"
+- Type in the paper's name in the pop-up Zotero search bar
 - You get a markdown file named with a unique citekey like this
 - The "🔖 Tags" are the tags you add to the document with attachments (tags for annotations are displayed with invdiviual annotation)
 ![Screenshot 2023-11-19 at 13.09.45.png](https://github.com/yuyuslab/Zotero-Obsidian-Integration/blob/main/screenshots/Screenshot%202023-11-19%20at%2013.09.45.png)
