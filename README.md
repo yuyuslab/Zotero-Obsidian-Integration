@@ -7,7 +7,6 @@ Download and enable [Better BibTeX for Zotero](https://retorque.re/zotero-better
 ## Step 3
 Set up Obsidian folders and a file
 - Make folders named "Templates/Inputs", "Inbox", and "Images"
-- Create a file "paper" in "Inputs"
 - Put [this](https://github.com/yuyuslab/Zotero-Obsidian-Integration/blob/main/paper) "paper" file into "Inputs"
 
 ## Step 4
