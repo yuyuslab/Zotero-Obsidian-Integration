@@ -1,3 +1,6 @@
+## Step 0
+Assuming that there is already a bunch of references and annotations in Zotero 😂
+
 ## Step 1
 Download [Obsidian](https://obsidian.md/download)
 
